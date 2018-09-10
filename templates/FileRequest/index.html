@@ -6,7 +6,10 @@
 </head>
 <body>
 <div>
-    <form action=""
+    <form action="{% url 'fileRequestSubmit' %}" method="get">
+        <input type="text" name="key" title="Key">
+        <button type="submit">download</button>
+    </form>
 </div>
 </body>
 </html>

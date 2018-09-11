@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponse
 import os
+from . import lib
 
 # Create your views here.
 
@@ -17,4 +18,8 @@ def submit(requests):
         for chunk in file.chunks():
             path.write(chunk)
         path.close()
-        return render(requests, 'Upload/success.html')
+        key = lib.fileName2key(file.name)
+        data = {
+            'key': key,
+        }
+        return render(requests, 'Upload/success.html', data)

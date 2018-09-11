@@ -28,8 +28,10 @@ def submit(requests):
 
 def download(requests, filename):
     sep = os.path.sep
-    file = open('usr%sdownloads%s%s' % (sep, sep, filename), 'rb')
+    path = 'usr%sdownloads%s%s' % (sep, sep, filename)
+    file = open(path, 'rb')
     response = FileResponse(file)
+    # os.remove(path)
     response['Content-Type'] = 'application/octet-stream'
-    response['Content-Disposition'] = 'attachment;filename="buf.txt"'
+    response['Content-Disposition'] = 'attachment;filename="file.pdf"'
     return response

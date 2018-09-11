@@ -11,14 +11,16 @@ def index(requests):
 
 def submit(requests):
     if requests.method == 'POST':
-        file = requests.FILES.get('file', None)
-        if not file:
+        file = requests.FILES.get('file', None)  # 抓取文件
+        if not file:  # 如果文件为空
             return HttpResponse("No file for upload")
-        path = open(os.path.join('.%susr%suploads' % (os.path.sep, os.path.sep), file.name), 'wb+')
-        for chunk in file.chunks():
+        path = open(  # 文件的保存路径usr/uploads
+            os.path.join('.%susr%suploads' % (os.path.sep, os.path.sep), file.name)
+            , 'wb+')
+        for chunk in file.chunks():  # 文件分块
             path.write(chunk)
         path.close()
-        key = lib.fileName2key(file.name)
+        key = lib.fileName2key(lib.unique(file.name))  # 将文件哈希为key
         data = {
             'key': key,
         }
